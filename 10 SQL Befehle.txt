@@ -1,0 +1,45 @@
+1. [Tabelle erstellen]
+CREATE TABLE Mitarbeiter (
+    id_mitarbeiter INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Vorname varchar(255),
+    Nachnahme varchar(255),
+    Email varchar(255)
+);
+
+2. [Daten in neue Tabelle]
+INSERT INTO mitarbeiter (Vorname, Nachnahme, Email)
+(
+SELECT Mitarbeiter_Vorname, Mitarbeiter_Nachnahme, Mitarbeiter_Email
+FROM nichtmigrierte
+);
+
+3. [Tabelle umbenennen]
+ALTER TABLE mitarbeiter RENAME TO arbeiter;
+
+4. [Fremdschlüssel hinzufügen]
+ALTER TABLE mitarbeiter ADD id_mitarbeiter INT AFTER Special;
+
+5. [Index für Fremdschlüssel]
+ALTER TABLE mitarbeiter ADD INDEX (id_mitarbeiter);
+
+6. [Alte Datensätze/Spalten löschen]
+ALTER TABLE nichtmigrierte DROP Mitarbeiter_Email;
+ALTER TABLE nichtmigrierte DROP Mitarbeiter_Nachnahme;
+ALTER TABLE nichtmigrierte DROP Mitarbeiter_Vorname;
+ALTER TABLE nichtmigrierte DROP Haltbarkeitsdatum;
+ALTER TABLE nichtmigrierte DROP Produkt_Nummer;
+ALTER TABLE nichtmigrierte DROP Produkte;
+ALTER TABLE nichtmigrierte DROP ID;
+
+7. [Alte Tabelle löschen]
+DROP DATABASE nichtmigrierte;
+
+8. [Spalte hinzufügen]
+ALTER TABLE mitarbeiter ADD COLUMN Haltbarkeitsdatum DATE
+
+9. [Neue Attribute]
+ALTER TABLE mitarbeiter CHANGE Vorname vname VARCHAR(255)
+NOT NULL
+
+10. [Datensätze Aktualisieren]
+UPDATE mitarbeiter SET vname='Günter' WHERE id_mitarbeiter=1
